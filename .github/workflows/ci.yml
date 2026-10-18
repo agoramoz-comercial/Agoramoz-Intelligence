@@ -1,0 +1,63 @@
+name: CI
+
+on:
+  push:
+    branches: [main, 'claude/**']
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    name: Tipos, lint, testes e build
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_PASSWORD: postgres
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      DATABASE_URL: postgres://agoramoz_app:agoramoz_app_dev@127.0.0.1:5432/agoramoz_hr
+      DATABASE_ADMIN_URL: postgres://postgres:postgres@127.0.0.1:5432/agoramoz_hr
+      APP_URL: http://localhost:3000
+      SESSION_SECRET: ci-only-secret-0123456789abcdef0123456789abcdef
+      STORAGE_DIR: ./storage
+      EMAIL_PROVIDER: log
+      PASSWORD_HASH_COST: '12'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Base de dados (papel sem privilégios + migrações)
+        run: npm run db:setup && npm run db:migrate
+      - run: npm run typecheck
+      - run: npm run lint
+      - run: npm run test:unit
+      - run: npm run test:integration
+      - run: npm run build
+      - name: Dados de demonstração
+        run: npm run db:seed
+      - name: Instalar Chromium para E2E
+        run: npx playwright install --with-deps chromium
+      - name: Testes ponta-a-ponta
+        run: npm run test:e2e
+        env:
+          CI: 'true'
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-report
+          path: playwright-report
+          retention-days: 7
+      - name: Auditoria de dependências de produção
+        run: npm audit --omit=dev --audit-level=high

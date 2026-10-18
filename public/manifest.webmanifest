@@ -1,0 +1,11 @@
+{
+  "name": "AGORAMOZ HR",
+  "short_name": "AGORAMOZ HR",
+  "description": "Gateway de recrutamento da AGORAMOZ",
+  "start_url": "/app",
+  "display": "standalone",
+  "background_color": "#f3f5f4",
+  "theme_color": "#0a2540",
+  "lang": "pt-MZ",
+  "icons": [{ "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml" }]
+}

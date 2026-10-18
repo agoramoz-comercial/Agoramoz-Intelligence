@@ -1,0 +1,43 @@
+{
+  "evidence_id": "ev_c45867254b59721a3d42ea0305d9e25b5a20dfbbaa1b790b0499ba5fb1d1647a",
+  "provider": {
+    "id": "rea-cdp-browser",
+    "name": "REA Chrome DevTools Protocol observation provider",
+    "version": "2"
+  },
+  "operation": "inspect_web_page",
+  "confidence": "observed",
+  "target_note": "Cópia renderizada (via Firecrawl) da página pública de candidatura Workable \"Warehouse Attendant\", servida em 127.0.0.1 sem scripts; observada com REA inspect-web-page.",
+  "roles": {
+    "textbox": 14,
+    "combobox": 3,
+    "radiogroup": 5,
+    "radio": 11,
+    "button": 14,
+    "heading": 4,
+    "dialog": 2,
+    "progressbar": 1
+  },
+  "radiogroups": [
+    "Are you at least 18 years of age or older?",
+    "Do you have a High School Diploma, GED, or equivalent secondary school certification? (Please note: ProCaps will verify this with the issuin",
+    "Location & Commute: Please select the option that best describes your current situation. This role prefers someone who is willing to work ON",
+    "ProCaps Labs participates in E-Verify, a system used to verify employment eligibility. If hired, will you be able to provide valid/unexpired",
+    "PLEASE READ THE FOLLOWING CAREFULLY : I certify that all information provided in this application is true and complete to the best of my kno"
+  ],
+  "headings": [
+    "Warehouse Attendant",
+    "Personal information",
+    "Profile",
+    "Details"
+  ],
+  "limitations": [
+    "Artifact identity is unavailable for this observation.",
+    "Observation starts when REA attaches; prior network and console activity is unavailable.",
+    "Raw network headers, bodies, cookies, storage values, console objects, and WebSocket payloads are never retained; explicitly requested primitive console text is retained verbatim, while payload captures retain value-free shapes.",
+    "Source maps are reported only as declarative URLs and are not fetched.",
+    "URL-less scripts and console events without an allowed source URL are excluded because their origin cannot be proven.",
+    "CDP discovery omitted the target attachment state; attached is reported as unknown.",
+    "Browser host platform and architecture were not observed."
+  ]
+}

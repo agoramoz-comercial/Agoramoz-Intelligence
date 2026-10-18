@@ -1,0 +1,13 @@
+node_modules/
+.next/
+out/
+coverage/
+storage/
+playwright-report/
+test-results/
+.env
+.env.local
+*.tsbuildinfo
+next-env.d.ts
+.taste-skill/inspect/
+.DS_Store
